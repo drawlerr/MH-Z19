@@ -106,7 +106,7 @@ class MHZ19
 	/*######################-Utility Functions-########################*/
 
 	/* ensure communication is working (included in begin())*/
-	void verify();
+	byte verify();
 
 	/* disables calibration or sets ABCPeriod */
 	void autoCalibration(bool isON = true, byte ABCPeriod = 24);

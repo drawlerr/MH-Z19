@@ -36,15 +36,15 @@ void MHZ19::begin(Stream &serial)
     mySerial = &serial;    
     
     /* establish connection */
-    verify();
+    byte ret = verify();
 
     /* check if successful */
-    if (this->errorCode != RESULT_OK) 
+    if (ret != RESULT_OK)
     {
         #if defined (ESP32) && (MHZ19_ERRORS)
-        ESP_LOGE(TAG_MHZ19, "Initial communication errorCode recieved");
+        ESP_LOGE(TAG_MHZ19, "Initial communication errorCode received");
         #elif MHZ19_ERRORS
-        Serial.println("!ERROR: Initial communication errorCode recieved");
+        Serial.println("!ERROR: Initial communication errorCode received");
         #endif 
     }
 }
@@ -359,7 +359,7 @@ bool MHZ19::getABC()
 
 /*######################-Utility Functions-########################*/
 
-void MHZ19::verify()
+byte MHZ19::verify()
 {
     unsigned long timeStamp = millis();
 
@@ -378,7 +378,7 @@ void MHZ19::verify()
             Serial.println("!ERROR: Failed to verify connection(1) to sensor.");
             #endif   
 
-            return;
+            return this->errorCode;
         }
     }
 
@@ -399,7 +399,7 @@ void MHZ19::verify()
             Serial.println("!ERROR: Failed to verify connection(2) to sensor.");
             #endif
             
-            return;
+            return this->errorCode;
         }
     }      
 
@@ -414,10 +414,10 @@ void MHZ19::verify()
             Serial.println("!ERROR: Last response is not as expected, verification failed.");
             #endif
 
-            return;
+            return RESULT_MATCH;
         }
     }
-    return;
+    return RESULT_OK;
 }
 
 void MHZ19::autoCalibration(bool isON, byte ABCPeriod)

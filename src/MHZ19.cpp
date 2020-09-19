@@ -549,9 +549,7 @@ void MHZ19::constructCommand(Command_Type commandtype, int inData)
             asemblecommand[3] = inData;
         break;
     case RAWCO2:
-        break;
     case CO2UNLIM:
-        break;
     case CO2LIM:
         break;
     case ZEROCAL:
@@ -569,14 +567,11 @@ void MHZ19::constructCommand(Command_Type commandtype, int inData)
         asemblecommand[7] = Low;
         break;
     case GETRANGE:
-        break;
     case GETCALPPM:
-        break;
     case GETFIRMWARE:
-        break;
     case GETEMPCAL:
-        break;
     case GETLASTRESP:
+    case GETABC:
         break;
     }
 
